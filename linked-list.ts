@@ -68,38 +68,21 @@ class LinkedList<T> {
    * @returns LLNode<T>
    */
   public add(data: T): LLNode<T> {
-    // Note: This method can be written as in the below comment:
-    // ...
-    // if (this.isEmpty()) {
-    //   this.head = new LLNode(data);
-    //   this.head.next = null;
-    //   return this.head;
-    // }
-    // let current = this.head;
-    // while (current.next !== null) {
-    //   current = current.next;
-    // }
-    // current.next = new LLNode(data);
-    // current.next.next = null;
-    // return this.head;
-    // ...
-    // or generalized to:
-    return this.isEmpty()
-      ? this.insertAt(data, 0)
-      : this.insertAt(data, this.size());
+    return this.insertAt(data, this.size());
   }
 
   /**
-   * Removes node at position; returns head
+   * Removes node at position; returns data of removed node
    * @param position number
-   * @returns LLNode<T>
+   * @returns T
    */
-  public removeAt(position: number): LLNode<T> {
+  public removeAt(position: number): T {
     if (this.isEmpty()) throw new Error('LinkedList is empty');
     if (position > this.size()) throw new Error('Position is undefined');
     if (position === 0) {
+      let d = this.head.data;
       this.head = this.head.next;
-      return this.head;
+      return d;
     }
     let current: LLNode<T> = this.head;
     let previous: LLNode<T> | null = null;
@@ -112,7 +95,7 @@ class LinkedList<T> {
     if (previous) {
       previous.next = current.next;
     }
-    return this.head;
+    return current.data;
   }
 
   /**
